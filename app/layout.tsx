@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
-import { Inter, Quicksand } from 'next/font/google';
+import { Quicksand } from 'next/font/google';
 import './globals.css';
-import Navigation from '@/components/Navigation';
 import AudioToggle from '@/components/AudioToggle';
 
-const quicksand = Quicksand({ subsets: ['latin'] });
+const quicksand = Quicksand({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+});
 
 export const metadata: Metadata = {
   title: 'Your Portfolio | Animator & Illustrator',
@@ -19,7 +21,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={quicksand.className}>
-        <Navigation />
         {children}
         <AudioToggle />
       </body>
