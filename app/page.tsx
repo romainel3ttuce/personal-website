@@ -1,65 +1,98 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import AboutModal from '@/components/AboutModal';
+import LinksModal from '@/components/LinksModal';
+import ContactModal from '@/components/ContactModal';
+import Image from 'next/image';
 
 export default function Home() {
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isLinksOpen, setIsLinksOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <main className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 flex flex-col items-center justify-center px-4">
+        
+        {/* Profile Picture - Click to Open About Modal */}
+        <button
+          onClick={() => setIsAboutOpen(true)}
+          className="group relative w-40 h-40 mb-6 focus:outline-none"
+          aria-label="Learn more about me"
+        >
+          <div className="w-full h-full rounded-full bg-gradient-to-r from-pink-400 to-purple-400 p-1 shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+            <div className="w-full h-full rounded-full bg-white overflow-hidden flex items-center justify-center">
+              {/* Replace with your actual image */}
+              <div className="text-7xl">
+                🧑‍🎨
+              </div>
+              {/* Uncomment when you add your photo:
+              <Image
+                src="/images/profile.jpg"
+                alt="Profile"
+                width={160}
+                height={160}
+                className="object-cover"
+              />
+              */}
+            </div>
+          </div>
+          {/* Subtle hover hint */}
+          <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition">
+            Click to learn about me ✨
+          </span>
+        </button>
+
+        {/* Current Position */}
+        <div className="text-center mb-12">
+          <p className="text-sm text-pink-600 font-medium mb-1">✨ Currently</p>
+          <p className="text-xl md:text-2xl text-gray-700 font-medium">
+            Character Animator at <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent font-bold">Dream Studio</span>
           </p>
+          <p className="text-gray-500 text-sm mt-2">Available for freelance ✨</p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {/* Links Button */}
+          <button
+            onClick={() => setIsLinksOpen(true)}
+            className="flex flex-col items-center gap-2 px-6 py-3 bg-white/80 backdrop-blur rounded-2xl shadow-md hover:shadow-xl transition-all hover:-translate-y-1"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <span className="text-3xl">🔗</span>
+            <span className="text-sm font-medium text-gray-700">Links</span>
+          </button>
+
+          {/* Contact Button */}
+          <button
+            onClick={() => setIsContactOpen(true)}
+            className="flex flex-col items-center gap-2 px-6 py-3 bg-white/80 backdrop-blur rounded-2xl shadow-md hover:shadow-xl transition-all hover:-translate-y-1"
           >
-            Documentation
+            <span className="text-3xl">📬</span>
+            <span className="text-sm font-medium text-gray-700">Contact</span>
+          </button>
+
+          {/* View Work Button - Navigates to /work page */}
+          <a
+            href="/work"
+            className="flex flex-col items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 rounded-2xl shadow-md hover:shadow-xl transition-all hover:-translate-y-1"
+          >
+            <span className="text-3xl">✨</span>
+            <span className="text-sm font-medium text-white">View Work</span>
           </a>
         </div>
+
+        {/* Small footer note */}
+        <p className="text-xs text-gray-400 text-center">
+          Made with 🎨 and ☕
+        </p>
       </main>
-    </div>
+
+      {/* Modals */}
+      <AboutModal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
+      <LinksModal isOpen={isLinksOpen} onClose={() => setIsLinksOpen(false)} />
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+    </>
   );
 }
